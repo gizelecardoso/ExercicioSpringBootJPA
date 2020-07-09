@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table (name = "tb_veiculo")
 public class Veiculo {
-	
+
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,6 +26,29 @@ public class Veiculo {
 	
 	@Column (nullable=false, length = 10)
 	private String ano;
+	
+	@OneToOne(optional = false)
+	@JoinColumn(name = "id_placa")
+	private Placa placa;
+	
+	@ManyToOne
+	private Pessoa pessoa;
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public Placa getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
 
 	public Long getId() {
 		return id;
